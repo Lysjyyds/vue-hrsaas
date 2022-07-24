@@ -1,3 +1,4 @@
+// 构建项目
 const { run } = require('runjs')
 const chalk = require('chalk')
 const config = require('../vue.config.js')
