@@ -1,6 +1,7 @@
 // 状态
-import { getToken, removeToken, setToken, setTimeStamp } from '@/utils/auth'
-import { login, getUserInfo, getUserDetailById } from '@/api/user'
+import { getToken, removeToken, setTimeStamp, setToken } from '@/utils/auth'
+import { getUserDetailById, getUserInfo, login } from '@/api/user'
+import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(), // 初始化到时候把本地存储到token复制给vue默认值
@@ -41,11 +42,18 @@ const actions = {
     const baseInfo = await getUserDetailById(res.userId)// // 为了获取头像
     const baseResult = { ...res, ...baseInfo } // 将两个接口结果合并
     context.commit('setUserInfo', baseResult) // // 提交mutations
+    return baseResult
   },
   // 退出功能
   logout(context) {
     context.commit('removeToken')
     context.commit('removeUserInfo')
+    // 重置路由匹配信息
+    resetRouter()
+
+    // context是根节点的上下文
+    // vuex里面的路由表置空
+    context.commit('permission/setRoutes', [], { root: true })
   }
 }
 export default {

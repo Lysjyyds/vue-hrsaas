@@ -41,9 +41,9 @@ export default {
   methods: {
     async clcikItem(type) {
       if (type === 'add') {
-        console.log('添加了')
+        this.$emit('handleAddDepts', this.treeData)
       } else if (type === 'edit') {
-        console.log('编辑了')
+        this.$emit('handleEditDepts', this.treeData)
       } else {
         await this.$confirm('确定要退出吗？')
         await delDepartments(this.treeData.id)// 删除

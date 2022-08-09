@@ -19,10 +19,21 @@ router.beforeEach(async(to, from, next) => {
   NProgress.start() // 开启进度条
   // 1.是否哟呀token
   const token = store.getters.token
+
   if (token) {
     // 判断是否去登录页
     if (!store.getters.userId) { // 如果用户登录了没有用户信息获取一下
-      await store.dispatch('user/getUserInfo')
+      const res = await store.dispatch('user/getUserInfo')
+      console.log(res)
+      const routes = await store.dispatch('permission/filterRoutes', res.roles.menus)
+      // 默认情况只有静态路由
+      // 进行动态路由的添加
+      console.log(routes)
+      router.addRoutes([...routes, {
+        path: '*', redirect: '/404', hidden: true
+      }]
+      )
+      next(to.path)
     }
     if (to.path === loginPath) {
       next('/') // 跳转到首页

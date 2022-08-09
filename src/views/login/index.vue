@@ -227,7 +227,7 @@ $light_gray: #eee;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
-  background-image: url('~@/assets/common/1.jpeg'); // 设置背景图片
+  background-image: url('~@/assets/common/WechatIMG9.jpeg'); // 设置背景图片
   //background-position: center; // 将图片位置设置为充满整个屏幕
   background-size: 2000px;
 
